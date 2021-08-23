@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:clima_flutter/services/location.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:http/http.dart' as http;
+
+const apikey = '468d5be0c365a35424971c41fb2dba8f';
 
 class LoadingScreen extends StatefulWidget {
   @override
@@ -8,6 +12,9 @@ class LoadingScreen extends StatefulWidget {
 }
 
 class _LoadingScreenState extends State<LoadingScreen> {
+  double? latitue;
+  double? longitute;
+
   @override
   void initState() {
     getLocation();
@@ -17,26 +24,33 @@ class _LoadingScreenState extends State<LoadingScreen> {
   void getLocation() async {
     Location location = Location();
     await location.getcurrentlocation();
-    print(location.latitude);
-    print(location.longitude);
+    latitue = location.latitude;
+    longitute = location.longitude;
+    getData();
   }
 
   void getData() async {
-    Response response = await get(
-        Uri.parse('https://api.openweathermap.org/data/2.5/weather?id=2172797&appid=468d5be0c365a35424971c41fb2dba8f'));
-    print(response);
+    http.Response response = await http.get(Uri.parse(
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitue&lon=$longitute&appid=$apikey'));
 
-    if ( response.statusCode == 200 ){
+    if (response.statusCode == 200) {
       String data = response.body;
-    }
-    else{
+      var decodedata = jsonDecode(data);
+
+      double temp = decodedata['main']['temp'];
+      int condition = decodedata['weather'][0]['id'];
+      String cityName = decodedata['name'];
+
+      print(temp);
+      print(condition);
+      print(cityName);
+    } else {
       print(response.statusCode);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    getData();
     return Scaffold(
       body: Center(
         child: ElevatedButton(
