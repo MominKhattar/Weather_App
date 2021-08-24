@@ -26,6 +26,10 @@ class _CityScreenState extends State<CityScreen> {
               Align(
                 alignment: Alignment.topLeft,
                 child: ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                    elevation: MaterialStateProperty.all(0),
+                  ),
                   onPressed: () {
                     Navigator.pop(context);
                   },
@@ -39,6 +43,10 @@ class _CityScreenState extends State<CityScreen> {
                 padding: EdgeInsets.all(20.0),
 
                 child: TextFormField(
+                  enableSuggestions: true,
+                  onFieldSubmitted: (value){
+                    cityName = value;
+                  },
                   onChanged: (value){
                     cityName = value;
                   },
@@ -50,6 +58,10 @@ class _CityScreenState extends State<CityScreen> {
                 ),
               ),
               ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                  elevation: MaterialStateProperty.all(0),
+                ),
                 onPressed: () {
                   Navigator.pop(context, cityName);
                 },

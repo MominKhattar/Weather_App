@@ -50,6 +50,7 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        padding:  EdgeInsets.all(10),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage('images/location_background.jpg'),
@@ -68,6 +69,10 @@ class _LocationScreenState extends State<LocationScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                      elevation: MaterialStateProperty.all(0),
+                    ),
                     onPressed: () async {
                       var weatherData = await weather.getloationWeather();
                       updateUI(weatherData);
@@ -78,6 +83,10 @@ class _LocationScreenState extends State<LocationScreen> {
                     ),
                   ),
                   ElevatedButton(
+                    style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.transparent),
+                        elevation: MaterialStateProperty.all(0),
+                    ),
                     onPressed: () async {
                       var typedName = await Navigator.push(
                           context,
