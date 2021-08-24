@@ -12,10 +12,7 @@ class NetworkHelper {
 
     if (response.statusCode == 200) {
       String data = response.body;
-       return jsonDecode(data);
-      // double temp = decodedata['main']['temp'];
-      // int condition = decodedata['weather'][0]['id'];
-      // String cityName = decodedata['name'];
+      return jsonDecode(data);
     } else {
       print(response.statusCode);
     }
