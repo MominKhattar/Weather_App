@@ -20,6 +20,7 @@ class _LoadingScreenState extends State<LoadingScreen> {
   // WeatherModel? weatherModel;
   // var weatherData;
 
+
   void getLocationData() async {
     WeatherModel weatherModel =  WeatherModel();
     var weatherData = await weatherModel.getloationWeather();
